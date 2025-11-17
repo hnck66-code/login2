@@ -2,7 +2,8 @@
 // utils/session_handler.php
 // Panggil ini di awal setiap entry point (index.php, views/home.php, controllers jika perlu)
 if (session_status() === PHP_SESSION_NONE) {
-    $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
+   $port = $_SERVER['SERVER_PORT'] ?? null;
+   $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $port == 443;
     session_set_cookie_params([
         'lifetime' => 0,
         'path' => '/',
@@ -29,3 +30,4 @@ function require_login() {
     }
     $_SESSION['last_active'] = time();
 }
+
